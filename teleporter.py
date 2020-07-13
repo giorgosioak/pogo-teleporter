@@ -39,6 +39,9 @@ def get_cooldown(dist):
 
     return cd[next(i for i,v in enumerate(km) if v > dist)-1]
 
+def yellowprint(text):
+    """Print in yellow"""
+    print( + text + '\033[0m')
 
 def main(argv):
     """Main fuction."""
@@ -62,9 +65,9 @@ def main(argv):
         cd = get_cooldown(dist)
 
         if 200.0 in lc:
-            print("» Teleporting...")
+            print('\033[93m' + "» Teleporting..." + '\033[0m')
         else:
-            print("» Teleporting... Distance from last coords: " + str(round(dist,2)) + "km. Cooldown: " + cd )
+            print('\033[93m' + "» Teleporting... Distance: " + '\033[94m' + '\033[1m' + str(round(dist,2)) + "km" +  '\033[0m' + '\033[93m' + " Cooldown: " + '\033[92m' + '\033[1m' + cd + '\033[0m')
 
         # Save last coords
         lc = [lat, lon]
