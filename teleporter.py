@@ -33,9 +33,11 @@ def get_cooldown(dist):
     """Return cooldown time of given distance."""
     km = [0,1,5,10,25,30,65,81,100,250,500,750,1000,1500]
     cd = ["0s","30s","2m","6m","11m","14m","22m","25m","35m","45m","1h","1.3h","1.5h","2h","2h"]
-
-    i = next(i for i,v in enumerate(km) if v > dist)
-    return cd[i-1],cd[i]
+    if dist > 1500:
+        return "2h", "2h"
+    for i,v in enumerate(km):
+        if v > dist:
+            return cd[i-1], cd[i]
 
 def yellowprint(text):
     """Print in yellow"""
@@ -65,6 +67,8 @@ def main(argv):
 
         if 200.0 in lc:
             print('\033[93m' + "» Teleporting..." + '\033[0m')
+        elif "2h" in cd:
+            print('\033[93m' + "» Teleporting... Distance: " + '\033[94m' + '\033[1m' + str(round(dist,2)) + "km" +  '\033[0m' + '\033[93m' + " Cooldown: " + '\033[92m' + '\033[1m' + cd + '\033[0m')
         else:
             print('\033[93m' + "» Teleporting... Distance: " + '\033[94m' + '\033[1m' + str(round(dist,2)) + "km" +  '\033[0m' + '\033[93m' + " Cooldown: " + '\033[92m' + '\033[1m' + cd + "~" + safe + '\033[0m')
 
