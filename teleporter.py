@@ -5,8 +5,11 @@ Python 3 - Teleport to coords
 Developed by George Ioakeimidis <giorgosioak95@gmail.com>
 '''
 import os
+import re
 import sys
 from math import sin, cos, sqrt, atan2, radians
+
+COORD_PATTERN = r"-?(\d{1,3})\.(\d{1,15})[ ]?,[ ]?-?(\d{1,3})\.(\d{1,15})"
 
 def get_distance(lat1, lon1, lat2, lon2):
     """Return distance of two coordinates."""
@@ -49,10 +52,15 @@ def main(argv):
     
     # read line from input
     for line in sys.stdin:
-        line = line.split(',')    
+        regex = re.search(COORD_PATTERN, line)
+        matched = regex.group(0) if regex else ""
+        if matched == "":
+            print('\033[91m' + "× No coords match! Skipping..." + '\033[0m')
+            continue
+        line = matched.split(',')
         lat  = str(line[0].strip())
         lon = str(line[1].strip())
-        
+
         # Setup teleport command 
         cmd = "adb shell am start-foreground-service -a theappninjas.gpsjoystick.TELEPORT --ef lat " + lat + " --ef lng " + lon
         cmd += " > /dev/null 2>&1" # ignore output
