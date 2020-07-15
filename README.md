@@ -13,10 +13,14 @@ Cooldown time is based on distance from last coords.
 Runtime Example:
 ``` bash
 $ python teleporter.py 
-29.580623,-98.694229
+41.668097,-0.897650
 » Teleporting...
- 43.895691,-79.234850
-» Teleporting... Distance: 2348.67km Cooldown: 2h
+29.561898,-95.281464
+» Teleporting... Distance: 8213.16km Cooldown: 2h
+  @Shundo💯✨ 29.561898,-95.281464
+» Teleporting... Distance: 0.0km Cooldown: 0s~30s
+this should throw error
+× No coords match! Skipping...
 ```
 
 More info:
