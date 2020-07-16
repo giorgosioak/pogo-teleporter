@@ -5,6 +5,7 @@ Python 3 - Teleport to coords
 Developed by George Ioakeimidis <giorgosioak95@gmail.com>
 '''
 import os
+import platform
 import re
 import sys
 from math import sin, cos, sqrt, atan2, radians
@@ -61,9 +62,10 @@ def main(argv):
         lat  = str(line[0].strip())
         lon = str(line[1].strip())
 
-        # Setup teleport command 
-        cmd = "adb shell am start-foreground-service -a theappninjas.gpsjoystick.TELEPORT --ef lat " + lat + " --ef lng " + lon
-        cmd += " > /dev/null 2>&1" # ignore output
+        # Setup teleport command
+        cmd = "adb.exe" if platform.system() == "Windows" else "adb"
+        cmd += " shell am start-foreground-service -a theappninjas.gpsjoystick.TELEPORT --ef lat " + lat + " --ef lng " + lon
+        cmd += " >nul 2>&1" if platform.system() == "Windows" else " > /dev/null 2>&1" # ignore output
         os.system(cmd)
 
         lat = float(lat)
