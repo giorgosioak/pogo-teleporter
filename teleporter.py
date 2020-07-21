@@ -56,16 +56,20 @@ def main(argv):
     for line in sys.stdin:
         regex = re.search(COORD_PATTERN, line)
         matched = regex.group(0) if regex else ""
-        if matched == "" and "back" not in line:
-            print('\033[91m' + "× No coords match! Skipping..." + '\033[0m')
-            continue
-        elif matched == "" and "back" in line:
-            lat = str(blc[0])
-            lon = str(blc[1])
-        else:
+
+        if matched != "":
             line = matched.split(',')
             lat  = str(line[0].strip())
             lon = str(line[1].strip())
+        elif "back" in line:
+            lat = str(blc[0])
+            lon = str(blc[1])
+        elif any(x in line for x in ["quit", "exit"]):
+            print('\033[94m' + "• Exiting..." + '\033[0m')
+            exit()
+        else:
+            print('\033[91m' + "× No coords match! Skipping..." + '\033[0m')
+            continue
 
         # Setup teleport command
         cmd = "adb.exe" if platform.system() == "Windows" else "adb"
