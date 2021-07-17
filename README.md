@@ -25,3 +25,4 @@ this should throw error
 
 More info:
 * [GPS Joystick](http://gpsjoystick.theappninjas.com/)
+* [Cooldown Chart](https://pokexperience.com/cooldown.html)
